@@ -1,0 +1,29 @@
+---
+// Firebase Hosting serves this for any path that does not exist, in either language.
+import Base from '../layouts/Base.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import { t } from '../i18n/strings';
+const es = t('es');
+const en = t('en');
+---
+<Base lang="es" title={es.notFound.title} noindex>
+  <main id="contenido" class="nf">
+    <img src="/ghosts/base.png" alt="" width="160" />
+    <h1>{es.notFound.title}</h1>
+    <p>{es.notFound.body}</p>
+    <a class="pill" href="/">{es.notFound.back}</a>
+    <p class="en" lang="en">{en.notFound.body} <a href="/en/">{en.notFound.back}</a></p>
+  </main>
+  <SiteFooter lang="es" />
+</Base>
+
+<style>
+  .nf { min-height: 80vh; display: grid; place-content: center; justify-items: center; text-align: center; padding: 4rem 16px; }
+  .nf img { animation: float 5s ease-in-out infinite; }
+  @keyframes float { 50% { translate: 0 -12px; } }
+  @media (prefers-reduced-motion: reduce) { .nf img { animation: none; } }
+  h1 { font-family: var(--display); font-size: clamp(2rem, 6vw, 3.4rem); margin: 1rem 0 .4rem; }
+  p { color: var(--muted); }
+  .pill { display: inline-block; margin: 1rem 0 2rem; background: var(--ink); color: var(--ground); padding: .8rem 1.4rem; border-radius: 999px; text-decoration: none; }
+  .en { font-size: .9rem; }
+</style>

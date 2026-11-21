@@ -3,3 +3,7 @@ dist/
 .astro/
 .env*
 .claude/
+
+# Firebase
+.firebase/
+firebase-debug.log
