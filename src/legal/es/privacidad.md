@@ -4,8 +4,8 @@ updated: '[fecha de publicación]'
 ---
 
 <!--
-BORRADOR (2026-11-21). No se publica hasta que los fundadores decidan quién es el responsable del
-tratamiento (plan web, pregunta abierta 1). Lo marcado con <mark> está por rellenar o confirmar.
+BORRADOR (2026-11-21). Responsable y titular: Álvaro Francisco Gil, autónomo, hasta que exista la SL
+(decidido por los fundadores el 2026-11-21). Se publica cuando estén su NIF y su domicilio y esté revisado. Lo marcado con <mark> está por rellenar o confirmar.
 Antes de enseñárselo a Google, Meta o TikTok, que lo revise alguien que sepa de RGPD.
 -->
 
@@ -16,8 +16,8 @@ derechos tienes.
 
 ## 1. Quién es el responsable
 
-<mark>[Nombre completo o razón social]</mark>, <mark>[NIF/CIF]</mark>, con domicilio en
-<mark>[dirección]</mark>, España («Ghostaff», «nosotros»).
+Álvaro Francisco Gil, profesional autónomo que opera con el nombre comercial Ghostaff, con NIF
+<mark>[NIF]</mark> y domicilio en <mark>[dirección]</mark>, España («Ghostaff», «nosotros»).
 Contacto para cualquier asunto de privacidad: [hola@ghostaff.ai](mailto:hola@ghostaff.ai).
 
 Cuando una empresa usa Ghostaff para tratar datos de terceros (sus clientes, proveedores o empleados que
