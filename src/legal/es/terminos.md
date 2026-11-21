@@ -4,14 +4,14 @@ updated: '[fecha de publicación]'
 ---
 
 <!--
-BORRADOR (2026-11-21). No se publica hasta que los fundadores decidan quién es el titular (el mismo
-responsable que la política de privacidad). Lo marcado con <mark> está por rellenar o confirmar.
+BORRADOR (2026-11-21). Responsable y titular: Álvaro Francisco Gil, autónomo, hasta que exista la SL
+(decidido por los fundadores el 2026-11-21). Se publica cuando estén su NIF y su domicilio y esté revisado. Lo marcado con <mark> está por rellenar o confirmar.
 Que lo revise alguien con conocimientos legales antes de publicarlo.
 -->
 
 Estos términos regulan el uso de Ghostaff, la aplicación y esta web, que ofrece
-<mark>[Nombre completo o razón social]</mark>, <mark>[NIF/CIF]</mark>, con domicilio en
-<mark>[dirección]</mark>, España («Ghostaff», «nosotros»). Al crear una cuenta los aceptas en nombre de tu
+Álvaro Francisco Gil, profesional autónomo que opera con el nombre comercial Ghostaff, con NIF
+<mark>[NIF]</mark> y domicilio en <mark>[dirección]</mark>, España («Ghostaff», «nosotros»). Al crear una cuenta los aceptas en nombre de tu
 empresa u organización.
 
 ## 1. El servicio

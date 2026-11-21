@@ -85,7 +85,7 @@ const es = {
   },
   notFound: { title: 'Aquí no hay nadie', body: 'Ni siquiera un fantasma. Esta página no existe.', back: 'Volver al inicio' },
   legal: {
-    draft: 'Borrador sin publicar: solo se ve en local hasta que los fundadores decidan quién es el responsable del tratamiento.',
+    draft: 'Borrador sin publicar: solo se ve en local hasta que esté completo y revisado.',
     updated: 'Última actualización',
   },
 };
@@ -176,7 +176,7 @@ const en: Strings = {
   },
   notFound: { title: 'Nobody here', body: 'Not even a ghost. This page does not exist.', back: 'Back to the home page' },
   legal: {
-    draft: 'Unpublished draft: only visible locally until the founders decide who the data controller is.',
+    draft: 'Unpublished draft: only visible locally until it is complete and reviewed.',
     updated: 'Last updated',
   },
 };
