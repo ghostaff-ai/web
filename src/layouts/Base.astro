@@ -1,0 +1,25 @@
+---
+import { t, type Lang } from '../i18n/strings';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const s = t(lang);
+---
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="alternate" hreflang="es" href="https://ghostaff.ai/" />
+    <link rel="alternate" hreflang="en" href="https://ghostaff.ai/en/" />
+    <title>{s.title}</title>
+    <meta name="description" content={s.description} />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
+<style is:global>
+  :root { --ground: #0c0d13; --ink: #ecedf3; --muted: #8c8fa0; --accent: #ff8a4c; color-scheme: dark; }
+  body { margin: 0; background: var(--ground); color: var(--ink); font-family: system-ui, sans-serif; }
+</style>

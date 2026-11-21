@@ -1,0 +1,28 @@
+---
+// The whole landing page; the 3D/cinematic approach is still being chosen
+// (docs/plans in ghostaff-ai/app: ideas/web.md, decision 2).
+import Base from '../layouts/Base.astro';
+import { t, type Lang } from '../i18n/strings';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const s = t(lang);
+---
+<Base lang={lang}>
+  <nav><a href={lang === 'es' ? '/en/' : '/'}>{s.otherLang}</a></nav>
+  <main>
+    <section class="hero">
+      <h1>{s.heroTitle}</h1>
+      <p>{s.heroLine}</p>
+      <a class="pill" href="#">{s.cta}</a>
+    </section>
+    <section class="founders"><h2>{s.founders}</h2></section>
+  </main>
+</Base>
+<style>
+  nav { padding: 16px; text-align: right; } nav a { color: var(--muted); }
+  .hero { min-height: 90vh; display: grid; place-content: center; text-align: center; padding: 0 16px; }
+  h1 { font-size: clamp(2.5rem, 7vw, 5.5rem); margin: 0; }
+  p { color: var(--muted); max-width: 36rem; margin: 1rem auto 2rem; }
+  .pill { justify-self: center; background: var(--ink); color: var(--ground); padding: .9rem 1.6rem; border-radius: 999px; text-decoration: none; }
+  .founders { padding: 6rem 16px; text-align: center; }
+</style>
