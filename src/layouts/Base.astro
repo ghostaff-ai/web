@@ -1,4 +1,5 @@
 ---
+import '@fontsource-variable/rubik';
 import { t, type Lang } from '../i18n/strings';
 interface Props { lang: Lang }
 const { lang } = Astro.props;
@@ -20,6 +21,7 @@ const s = t(lang);
   </body>
 </html>
 <style is:global>
-  :root { --ground: #0c0d13; --ink: #ecedf3; --muted: #8c8fa0; --accent: #ff8a4c; color-scheme: dark; }
-  body { margin: 0; background: var(--ground); color: var(--ink); font-family: system-ui, sans-serif; }
+  :root { --ground: #0c0d13; --ink: #ecedf3; --muted: #8c8fa0; --accent: #ff8a4c; --display: 'Rubik Variable', system-ui, sans-serif; --body: system-ui, sans-serif; color-scheme: dark; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--ground); color: var(--ink); font-family: var(--body); overflow-x: hidden; }
 </style>
