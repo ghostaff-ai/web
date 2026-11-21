@@ -1,27 +1,83 @@
 ---
 import '@fontsource-variable/rubik';
 import { t, type Lang } from '../i18n/strings';
-interface Props { lang: Lang }
-const { lang } = Astro.props;
+interface Props {
+  lang: Lang;
+  /** Path of this page in the other language, for the switcher and hreflang; omit when there is none. */
+  alternate?: string;
+  /** Overrides the page title (the home page uses the site's). */
+  title?: string;
+  /** Keeps search engines out (drafts, 404). */
+  noindex?: boolean;
+}
+const { lang, alternate, title, noindex = false } = Astro.props;
 const s = t(lang);
+const site = Astro.site!;
+const canonical = new URL(Astro.url.pathname, site).href;
+const other = lang === 'es' ? 'en' : 'es';
+const pageTitle = title ? `${title} — Ghostaff` : s.title;
 ---
 <!doctype html>
 <html lang={lang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark light" />
+    <meta name="theme-color" content="#0c0d13" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="alternate" hreflang="es" href="https://ghostaff.ai/" />
-    <link rel="alternate" hreflang="en" href="https://ghostaff.ai/en/" />
-    <title>{s.title}</title>
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <title>{pageTitle}</title>
     <meta name="description" content={s.description} />
+    {noindex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={canonical} />}
+    {alternate && !noindex && (
+      <>
+        <link rel="alternate" hreflang={lang} href={canonical} />
+        <link rel="alternate" hreflang={other} href={new URL(alternate, site).href} />
+        <link rel="alternate" hreflang="x-default" href={new URL(lang === 'es' ? Astro.url.pathname : alternate, site).href} />
+      </>
+    )}
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Ghostaff" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={s.description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL('/og.png', site).href} />
+    <meta property="og:locale" content={lang === 'es' ? 'es_ES' : 'en_GB'} />
+    <meta name="twitter:card" content="summary_large_image" />
   </head>
   <body>
+    <a class="skip" href="#contenido">{s.skip}</a>
     <slot />
   </body>
 </html>
 <style is:global>
-  :root { --ground: #0c0d13; --ink: #ecedf3; --muted: #8c8fa0; --accent: #ff8a4c; --display: 'Rubik Variable', system-ui, sans-serif; --body: system-ui, sans-serif; color-scheme: dark; }
+  /* Dark is the brand (a night office); light follows the visitor's system.
+     The film section stays dark in both, since it is a night scene. */
+  :root {
+    --ground: #0c0d13; --ink: #ecedf3; --muted: #9a9db0; --accent: #ff8a4c;
+    --surface: #171922; --line: #2a2c38; --chip: #232533; --glow: #7a5cff33;
+    --display: 'Rubik Variable', system-ui, sans-serif; --body: system-ui, sans-serif;
+    color-scheme: dark;
+  }
+  @media (prefers-color-scheme: light) {
+    :root {
+      --ground: #f5f5f7; --ink: #14151c; --muted: #555869; --accent: #c2410c;
+      --surface: #ffffff; --line: #dcdde4; --chip: #ececf1; --glow: #7a5cff26;
+      color-scheme: light;
+    }
+  }
+  .night {
+    --ground: #0c0d13; --ink: #ecedf3; --muted: #9a9db0; --accent: #ff8a4c;
+    --surface: #171922; --line: #2a2c38; --chip: #232533;
+    color-scheme: dark; background: var(--ground); color: var(--ink);
+  }
   html { scroll-behavior: smooth; }
-  body { margin: 0; background: var(--ground); color: var(--ink); font-family: var(--body); overflow-x: hidden; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  body { margin: 0; background: var(--ground); color: var(--ink); font-family: var(--body); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+  a { color: inherit; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+  .skip { position: absolute; left: 16px; top: -100px; z-index: 100; background: var(--ink); color: var(--ground); padding: .6rem 1rem; border-radius: 999px; text-decoration: none; }
+  .skip:focus { top: 12px; }
+  .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 </style>

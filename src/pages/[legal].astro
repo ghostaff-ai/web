@@ -1,0 +1,45 @@
+---
+// /privacidad and /terminos. Built only while legalVisible (src/legal/index.ts):
+// under `pnpm dev` for review, and in `pnpm build` once LEGAL_PUBLISHED is true.
+import Base from '../layouts/Base.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import { t } from '../i18n/strings';
+import { legalVisible, LEGAL_PUBLISHED } from '../legal';
+import * as privacidad from '../legal/es/privacidad.md';
+import * as terminos from '../legal/es/terminos.md';
+
+export function getStaticPaths() {
+  if (!legalVisible) return [];
+  return [{ params: { legal: 'privacidad' } }, { params: { legal: 'terminos' } }];
+}
+
+const pages = { privacidad, terminos };
+const page = pages[Astro.params.legal as keyof typeof pages];
+const { Content, frontmatter } = page;
+const s = t('es');
+---
+<Base lang="es" title={frontmatter.title} noindex={!LEGAL_PUBLISHED}>
+  <SiteHeader lang="es" />
+  <main id="contenido" class="legal">
+    {!LEGAL_PUBLISHED && <p class="draft" role="note">{s.legal.draft}</p>}
+    <h1>{frontmatter.title}</h1>
+    <p class="updated">{s.legal.updated}: {frontmatter.updated}</p>
+    <Content />
+  </main>
+  <SiteFooter lang="es" />
+</Base>
+
+<style>
+  .legal { max-width: 760px; margin: 0 auto; padding: 7rem 16px 5rem; line-height: 1.65; }
+  .legal h1 { font-family: var(--display); font-size: clamp(2rem, 5vw, 3rem); line-height: 1.1; margin: 0 0 .5rem; }
+  .updated { color: var(--muted); margin: 0 0 2.5rem; }
+  .draft { background: color-mix(in srgb, var(--accent) 15%, transparent); border: 1px solid var(--accent); border-radius: 12px; padding: .8rem 1rem; }
+  .legal :global(h2) { font-family: var(--display); font-size: 1.4rem; margin: 2.5rem 0 .6rem; }
+  .legal :global(h3) { font-size: 1.05rem; margin: 1.6rem 0 .4rem; }
+  .legal :global(p), .legal :global(li) { color: color-mix(in srgb, var(--ink) 85%, var(--muted)); }
+  .legal :global(table) { width: 100%; border-collapse: collapse; font-size: .92rem; display: block; overflow-x: auto; }
+  .legal :global(th), .legal :global(td) { text-align: left; vertical-align: top; padding: .5rem .6rem; border-bottom: 1px solid var(--line); }
+  .legal :global(code) { font-size: .88em; }
+  .legal :global(mark) { background: color-mix(in srgb, var(--accent) 30%, transparent); color: inherit; padding: 0 .2em; border-radius: 3px; }
+</style>

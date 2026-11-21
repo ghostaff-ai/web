@@ -1,0 +1,35 @@
+---
+import { t, type Lang } from '../i18n/strings';
+interface Props {
+  lang: Lang;
+  /** Path of this page in the other language; the switcher goes to the other home page without it. */
+  alternate?: string;
+}
+const { lang, alternate } = Astro.props;
+const s = t(lang);
+const home = lang === 'es' ? '/' : '/en/';
+const otherLang = lang === 'es' ? 'en' : 'es';
+---
+<header class="bar">
+  <a class="brand" href={home}>Ghostaff</a>
+  <nav aria-label={s.nav.label}>
+    <a class="section" href={`${home}#producto`}>{s.nav.product}</a>
+    <a class="section" href={`${home}#seguridad`}>{s.nav.security}</a>
+    <a class="section" href={`${home}#preguntas`}>{s.nav.faq}</a>
+    <a class="section" href={`${home}#equipo`}>{s.nav.founders}</a>
+    <a href={alternate ?? (lang === 'es' ? '/en/' : '/')} hreflang={otherLang} lang={otherLang}>{s.otherLang}</a>
+    <a class="pill small" href={`${home}#acceso`}>{s.cta}</a>
+  </nav>
+</header>
+
+<style>
+  .bar { position: fixed; inset: 0 0 auto; z-index: 10; display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 14px 16px; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); background: color-mix(in srgb, var(--ground) 70%, transparent); }
+  .brand { font-family: var(--display); font-weight: 600; font-size: 1.2rem; color: var(--ink); text-decoration: none; }
+  nav { display: flex; gap: 18px; align-items: center; }
+  nav a { color: var(--muted); text-decoration: none; font-size: .95rem; }
+  nav a:hover { color: var(--ink); }
+  @media (max-width: 760px) { nav .section { display: none; } nav { gap: 14px; } }
+  .pill { display: inline-block; background: var(--ink); color: var(--ground); border-radius: 999px; text-decoration: none; font-weight: 500; }
+  nav .pill.small { color: var(--ground); padding: .5rem 1rem; white-space: nowrap; }
+  nav .pill.small:hover { color: var(--ground); opacity: .9; }
+</style>

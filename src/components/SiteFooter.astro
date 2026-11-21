@@ -1,0 +1,27 @@
+---
+import { t, CONTACT, type Lang } from '../i18n/strings';
+import { legalVisible, legalPaths } from '../legal';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const s = t(lang);
+---
+<footer>
+  <span>© {new Date().getFullYear()} {s.footer.rights}</span>
+  <nav aria-label={s.footer.contact}>
+    <a href={`mailto:${CONTACT}`}>{s.footer.contact}</a>
+    {legalVisible && (
+      <>
+        <a href={legalPaths.privacy}>{s.footer.privacy}</a>
+        <a href={legalPaths.terms}>{s.footer.terms}</a>
+      </>
+    )}
+  </nav>
+  <span>{s.footer.ai}</span>
+</footer>
+
+<style>
+  footer { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px 24px; padding: 32px 16px; color: var(--muted); font-size: .85rem; border-top: 1px solid var(--line); }
+  nav { display: flex; gap: 18px; }
+  a { color: var(--muted); }
+  a:hover { color: var(--ink); }
+</style>
