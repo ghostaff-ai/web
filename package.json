@@ -9,6 +9,7 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
+    "build:all": "bash scripts/build-with-app.sh",
     "preview": "astro preview",
     "astro": "astro",
     "check": "astro check"

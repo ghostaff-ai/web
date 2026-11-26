@@ -9,8 +9,10 @@ interface Props {
   title?: string;
   /** Keeps search engines out (drafts, 404). */
   noindex?: boolean;
+  /** Sends someone already signed in to the app straight into it (the home pages). */
+  toAppWhenSignedIn?: boolean;
 }
-const { lang, alternate, title, noindex = false } = Astro.props;
+const { lang, alternate, title, noindex = false, toAppWhenSignedIn = false } = Astro.props;
 const s = t(lang);
 const site = Astro.site!;
 const canonical = new URL(Astro.url.pathname, site).href;
@@ -21,6 +23,22 @@ const pageTitle = title ? `${title} — Ghostaff` : s.title;
 <html lang={lang}>
   <head>
     <meta charset="utf-8" />
+    {toAppWhenSignedIn && (
+      <script is:inline>
+        // The app at /app keeps its session in this origin's storage (Supabase's
+        // sb-<project>-auth-token). Someone signed in has no use for the sales page:
+        // into the app, before anything paints. The app itself checks the session.
+        try {
+          for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            if (key && /^sb-.+-auth-token$/.test(key) && JSON.parse(localStorage.getItem(key) || 'null')?.refresh_token) {
+              location.replace('/app');
+              break;
+            }
+          }
+        } catch {}
+      </script>
+    )}
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="color-scheme" content="dark light" />
     <meta name="theme-color" content="#0c0d13" media="(prefers-color-scheme: dark)" />
