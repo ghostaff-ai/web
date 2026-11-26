@@ -22,18 +22,28 @@ claude mcp add --transport http --scope user higgsfield https://mcp.higgsfield.a
 
 ## Deploy (Firebase Hosting, `ghostaff-prod`)
 
+ghostaff.ai serves two things from one Hosting site: this site at `/` and the app at `/app`, the web
+build of [ghostaff-ai/app](https://github.com/ghostaff-ai/app) (its `docs/plans/ongoing/desktop-web.md`,
+step 3). A deploy replaces the whole site, so both are always built and deployed together, from here.
+`/app/**` falls back to the app's `index.html` (`firebase.json`); someone already signed in who opens
+`/` or `/en/` goes straight to `/app`. The app talks to beta until production is up.
+
 The Firebase CLI must be signed in as ghostaff.ai@gmail.com (`firebase login:add`, then
-`firebase login:use ghostaff.ai@gmail.com`).
+`firebase login:use ghostaff.ai@gmail.com`). The app's checkout sits beside this one (`../app`, or
+`APP_DIR`), on `develop` and pulled, with its `apps/mobile/.env`.
 
 ```bash
-pnpm build && firebase hosting:channel:deploy preview --expires 30d
+pnpm build:all && firebase hosting:channel:deploy preview --expires 30d
 ```
 
 prints a preview URL to look at first. Going live (ask both founders first):
 
 ```bash
-pnpm build && firebase deploy --only hosting
+pnpm build:all && firebase deploy --only hosting
 ```
+
+`pnpm build` alone builds only this site, without `/app`; `firebase.json`'s predeploy refuses to deploy that. To look at both locally,
+`pnpm build:all && firebase emulators:start --only hosting --project demo-ghostaff` (port 5055).
 
 ## Legal pages
 

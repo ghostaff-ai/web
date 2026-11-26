@@ -8,6 +8,7 @@ const es = {
   skip: 'Saltar al contenido',
   nav: { label: 'Principal', product: 'Producto', security: 'Seguridad', faq: 'Preguntas', founders: 'Equipo' },
   cta: 'Pedir acceso',
+  signIn: 'Entrar',
   ctaSubject: 'Quiero probar Ghostaff',
   film: {
     hero: 'Tu equipo ya está trabajando',
@@ -100,6 +101,7 @@ const en: Strings = {
   skip: 'Skip to content',
   nav: { label: 'Main', product: 'Product', security: 'Security', faq: 'Questions', founders: 'Team' },
   cta: 'Request access',
+  signIn: 'Sign in',
   ctaSubject: 'I would like to try Ghostaff',
   film: {
     hero: 'Your team is already at work',
@@ -184,6 +186,9 @@ const en: Strings = {
 export const strings = { es, en };
 export type Lang = keyof typeof strings;
 export const t = (lang: Lang) => strings[lang];
+
+/** Where «Entrar» goes: the app's sign-in, served at /app beside this site (app repo, desktop-web.md). */
+export const APP_SIGN_IN = '/app/entrar';
 
 /** The address «Pedir acceso» and the footer write to. */
 export const CONTACT = 'hola@ghostaff.ai';
